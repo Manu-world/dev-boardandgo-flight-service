@@ -1,0 +1,9 @@
+env
+.env
+.venv/
+# FastAPI and Python related ignores
+__pycache__/
+*.pyc
+.mypy_cache/
+.pytest_cache/
+*.db
