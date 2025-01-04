@@ -63,7 +63,7 @@ class FlightService:
                     }
                 )
                 response.raise_for_status()
-                data = await response.json()
+                data = response.json()
 
                 API_REQUESTS.labels(status="success").inc()
                 
