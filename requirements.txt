@@ -11,7 +11,8 @@ opentelemetry-exporter-jaeger==1.21.0
 sentry-sdk==1.32.0
 pydantic==2.4.2
 pydantic-settings==2.0.3
-tenacity==8.2.3aioredis==2.0.1
+tenacity==8.2.3
+aioredis==2.0.1
 annotated-types==0.7.0
 anyio==3.7.1
 asgiref==3.8.1
