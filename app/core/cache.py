@@ -1,5 +1,5 @@
 from typing import Any, Optional
-import aioredis
+from redis import asyncio as aioredis  # This is the modern way to use async Redis
 from app.core.config import Settings
 import json
 
