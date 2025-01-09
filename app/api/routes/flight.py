@@ -5,9 +5,9 @@ from typing import Annotated
 from app.services.flight_service import FlightService
 from app.schemas.flight import FlightDataResponseSchema
 from app.schemas.error import ErrorResponseSchema
-from app.core.dependencies import get_flight_service, get_cache, rate_limit
+from app.core.dependencies import get_flight_service, rate_limit
 from app.core.logging import logger
-from app.core.cache import Cache
+# from app.core.cache import Cache
 from opentelemetry import trace
 from prometheus_client import Counter, Histogram
 import time
@@ -41,7 +41,7 @@ async def get_flight_data(
     flight_icao: str,
     response: Response,
     service: Annotated[FlightService, Depends(get_flight_service)],
-    cache: Annotated[Cache, Depends(get_cache)],
+    # cache: Annotated[Cache, Depends(get_cache)],
     rate_limiter: Annotated[None, Depends(rate_limit)]
 ):
     """
