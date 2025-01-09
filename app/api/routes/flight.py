@@ -93,16 +93,13 @@ async def get_flight_data(
             # response.headers["X-Cache"] = "MISS"
             
             FLIGHT_REQUESTS.labels(status="success", endpoint="get_flight_data").inc()
-            return formatted_data
+            return {"status": True, "data": formatted_data}
 
     except HTTPException:
         raise
     except Exception as e:
         logger.exception("Unexpected error in get_flight_data")
         FLIGHT_REQUESTS.labels(status="error", endpoint="get_flight_data").inc()
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Service temporarily unavailable"
-        )
+        return {"status": False, "data": None, "error": str(e)}
     finally:
         RESPONSE_TIME.labels(endpoint="get_flight_data").observe(time.time() - start_time)
