@@ -63,12 +63,12 @@ async def get_flight_data(
             span.set_attribute("flight.icao", flight_icao)
             
             # Check cache first
-            cache_key = f"flight:{flight_icao}"
-            cached_data = await cache.get(cache_key)
-            if cached_data:
-                FLIGHT_REQUESTS.labels(status="cache_hit", endpoint="get_flight_data").inc()
-                response.headers["X-Cache"] = "HIT"
-                return JSONResponse(content=json.loads(cached_data))
+            # cache_key = f"flight:{flight_icao}"
+            # cached_data = await cache.get(cache_key)
+            # if cached_data:
+            #     FLIGHT_REQUESTS.labels(status="cache_hit", endpoint="get_flight_data").inc()
+            #     # response.headers["X-Cache"] = "HIT"
+            #     return JSONResponse(content=json.loads(cached_data))
 
             # Validate ICAO format
             if not service.validate_flight_icao(flight_icao):
@@ -89,8 +89,8 @@ async def get_flight_data(
             formatted_data = await service.format_flight_data(raw_data)
             
             # Cache the result
-            await cache.set(cache_key, json.dumps(formatted_data.dict()), expire=30)
-            response.headers["X-Cache"] = "MISS"
+            # await cache.set(cache_key, json.dumps(formatted_data.dict()), expire=30)
+            # response.headers["X-Cache"] = "MISS"
             
             FLIGHT_REQUESTS.labels(status="success", endpoint="get_flight_data").inc()
             return formatted_data
